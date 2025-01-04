@@ -42,7 +42,7 @@ int main()
 {
     int i, j;
     char player = 'x';
-    int draw;
+    int draw = 0; // Initialize draw counter
     char a[3][3] = {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
     for (int i = 0; i < 3; i++)
     {
@@ -59,6 +59,7 @@ int main()
         if (i < 3 && j < 3 && i >= 0 && j >= 0 && a[i][j] == ' ')
         {
             a[i][j] = player;
+            draw++; // Increment draw counter
             for (int k = 0; k < 3; k++)
             {
                 for (int l = 0; l < 3; l++)
@@ -76,6 +77,11 @@ int main()
         if (rowcheck(a) != ' ' || colcheck(a) != ' ' || diacheck(a) != ' ')
         {
             cout << "player " << player << " wins\n";
+            break;
+        }
+        if (draw == 9) // Check if all positions are filled
+        {
+            cout << "The game is a tie\n";
             break;
         }
         player = (player == 'x') ? 'o' : 'x';
