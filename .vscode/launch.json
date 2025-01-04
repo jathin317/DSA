@@ -43,6 +43,24 @@
           "ignoreFailures": true
         }
       ]
+    },
+    {
+      "name": "Run without saving",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "/tmp/tempExecutable",
+      "preLaunchTask": "runWithoutSaving",
+      "cwd": "${fileDirname}",
+      "stopAtEntry": false,
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
     }
   ]
 }
