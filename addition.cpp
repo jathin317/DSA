@@ -3,7 +3,7 @@ using namespace std;
 
 int main()
 {
-    int a[] = {1, 2, 3};
+    int a[] = {1, 2, 3, 4};
     int b[] = {3, 2, 1};
     int sum[10];
     int topa = sizeof(a) / sizeof(a[0]) - 1;
