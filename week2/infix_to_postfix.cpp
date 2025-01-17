@@ -1,41 +1,67 @@
-#include<iostream>
-#include<string>
+#include <iostream>
+#include <stack>
 using namespace std;
+int precedence(char a)
+{
+    if (a == '(' || a == ')')
+    {
+        return 3;
+    }
+    else if (a == '^')
+    {
+        return 2;
+    }
+    else if (a == '/' || a == '*')
+    {
+        return 1;
+    }
+    else if (a == '+' || a == '-')
+    {
+        return 0;
+    }
+    return 4;
+}
 int main()
 {
     string infix;
-    cout<<"Enter the infix expression: ";
-    cin>>infix;
-    string result="";
-    string stack="";
-    int n=infix.length();
-    for(int i=0;i<n;i++)
+    char result[100];
+    stack<char> s;
+    cout << "Enter the infix expression" << endl;
+    cin >> infix;
+    int i = 0;
+    int j = 0;
+    while (infix[i] != '\0')
     {
-        if(infix[i]>='A' && infix[i]<='Z')
+        if ((infix[i] >= 'A' && infix[i] <= 'Z') || (infix[i] >= 'a' && infix[i] <= 'z'))
         {
-            result+=infix[i];
+            result[j++] = infix[i++];
         }
-        else if(infix[i]=='(')
+        else if (s.empty())
         {
-            stack+=infix[i];
-        }
-        else if(infix[i]==')')
-        {
-            while(stack[stack.length()-1]!='(')
-            {
-                result+=stack[stack.length()-1];
-                stack.pop_back();
-            }
-            stack.pop_back();
+            s.push(infix[i++]);
         }
         else
         {
-            while(stack.length()>0 && stack[stack.length()-1]!='(' && infix[i]<=stack[stack.length()-1])
+            if (precedence(infix[i]) >= precedence(s.top()))
             {
-                result+=stack[stack.length()-1];
-                stack.pop_back();
+                result[j++] = s.top();
+                s.pop();
             }
-            stack+=infix[i];
+            else
+            {
+                s.push(infix[i++]);
+            }
         }
     }
+    while (!s.empty())
+    {
+        result[j++] = s.top();
+        s.pop();
+    }
+    result[j] = '\0';
+    for (int k = 0; k <= j; k++)
+    {
+        cout << result[k];
+    }
+    cout << endl;
 }
