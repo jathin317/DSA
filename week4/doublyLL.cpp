@@ -61,7 +61,6 @@ void insertAtPosition(int value, node **head, int position)
         delete newnode;
         return;
     }
-
     newnode->next = temp->next;
     if (temp->next != nullptr)
     {
