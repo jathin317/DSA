@@ -3,7 +3,7 @@
 using namespace std;
 typedef struct node
 {
-    int data = 0;
+    int data;
     struct node *next = nullptr;
 } node;
 void insertAtBegginning(int value, node **head)
@@ -34,7 +34,6 @@ void insertionAtPosition(int value, node **head, int position)
 {
     node *newnode = new node();
     newnode->data = value;
-    newnode->next = nullptr;
     if (position == 1)
     {
         insertAtBegginning(value, head);
@@ -138,7 +137,6 @@ int main()
     node *head = new node();
     cout << "Enter the data: ";
     cin >> head->data;
-    head->next = nullptr;
     node *temp = head;
     for (int i = 2; i <= n; i++)
     {
