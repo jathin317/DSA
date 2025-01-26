@@ -1,41 +1,81 @@
-#include<iostream>
-#include<string>
+#include <iostream>
+#include <stack>
+#include <string>
 using namespace std;
+
+int precedence(char a)
+{
+    if (a == '^')
+    {
+        return 3;
+    }
+    else if (a == '/' || a == '*')
+    {
+        return 2;
+    }
+    else if (a == '+' || a == '-')
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 int main()
 {
     string infix;
-    cout<<"Enter the infix expression: ";
-    cin>>infix;
-    string result="";
-    string stack="";
-    int n=infix.length();
-    for(int i=0;i<n;i++)
+    cout << "Enter the expression: ";
+    cin >> infix;
+
+    stack<char> s;
+    string result;
+
+    for (int i = 0; i < (int)infix.length(); i++)
     {
-        if(infix[i]>='A' && infix[i]<='Z')
+        char ch = infix[i];
+
+        if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9'))
         {
-            result+=infix[i];
+            result += ch;
         }
-        else if(infix[i]=='(')
+
+        else if (ch == '(')
         {
-            stack+=infix[i];
+            s.push(ch);
         }
-        else if(infix[i]==')')
+
+        else if (ch == ')')
         {
-            while(stack[stack.length()-1]!='(')
+            while (!s.empty() && s.top() != '(')
             {
-                result+=stack[stack.length()-1];
-                stack.pop_back();
+                result += s.top();
+                s.pop();
             }
-            stack.pop_back();
+            if (!s.empty() && s.top() == '(')
+            {
+                s.pop();
+            }
         }
+
         else
         {
-            while(stack.length()>0 && stack[stack.length()-1]!='(' && infix[i]<=stack[stack.length()-1])
+            while (!s.empty() && precedence(s.top()) >= precedence(ch))
             {
-                result+=stack[stack.length()-1];
-                stack.pop_back();
+                result += s.top();
+                s.pop();
             }
-            stack+=infix[i];
+            s.push(ch);
         }
     }
+
+    while (!s.empty())
+    {
+        result += s.top();
+        s.pop();
+    }
+
+    cout << "Postfix expression: " << result << endl;
+    return 0;
 }
