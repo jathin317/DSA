@@ -134,20 +134,24 @@ int main()
     int n;
     cout << "Enter the number of nodes: ";
     cin >> n;
-    node *head = new node();
-    cout << "Enter the data: ";
-    cin >> head->data;
-    node *temp = head;
-    for (int i = 2; i <= n; i++)
-    {
-        node *newnode = new node();
+    node *head = nullptr; // Initialize head as nullptr
+    if (n > 0) {
         cout << "Enter the data: ";
-        cin >> newnode->data;
-        newnode->next = nullptr;
-        temp->next = newnode;
-        temp = newnode;
+        int data;
+        cin >> data;
+        head = new node();
+        head->data = data;
+        node *temp = head;
+        for (int i = 2; i <= n; i++)
+        {
+            node *newnode = new node();
+            cout << "Enter the data: ";
+            cin >> newnode->data;
+            newnode->next = nullptr;
+            temp->next = newnode;
+            temp = newnode;
+        }
     }
-    temp = head;
     char ch;
 
     while (1)
