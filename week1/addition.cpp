@@ -1,13 +1,27 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 int main()
 {
-    int a[] = {1, 2, 3, 4};
-    int b[] = {3, 2, 1};
-    int sum[10];
-    int topa = sizeof(a) / sizeof(a[0]) - 1;
-    int topb = sizeof(b) / sizeof(b[0]) - 1;
+    string a_str, b_str;
+    cout << "Enter first number: ";
+    cin >> a_str;
+    cout << "Enter second number: ";
+    cin >> b_str;
+
+    int a[100], b[100]; // Assuming the input numbers will not exceed 100 digits
+    int a_size = a_str.size();
+    int b_size = b_str.size();
+
+    for (int i = 0; i < a_size; ++i)
+        a[i] = a_str[i] - '0';
+    for (int i = 0; i < b_size; ++i)
+        b[i] = b_str[i] - '0';
+
+    int sum[100]; // Assuming the sum will not exceed 100 digits
+    int topa = a_size - 1;
+    int topb = b_size - 1;
     int tops = 0;
     int carry = 0;
 
