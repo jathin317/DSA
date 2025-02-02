@@ -1,23 +1,23 @@
 #include <iostream>
 #include <string>
+#include <stack>
 using namespace std;
+
 int main()
 {
     string str;
     cout << "Enter a string\n";
     cin >> str;
-    char stack[50];
-    int top = 0;
-    int n = str.length();
-    for (int i = 0; i < n; i++)
+    stack<char> s;
+    for (char ch : str)
     {
-        stack[top] = str[i];
-        top++;
+        s.push(ch);
     }
     cout << "Reversed string: ";
-    for (int i = top; i >= 0; i--)
+    while (!s.empty())
     {
-        cout << stack[i];
+        cout << s.top();
+        s.pop();
     }
     cout << endl;
 }

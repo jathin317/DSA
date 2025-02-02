@@ -86,23 +86,23 @@ int main()
 
         switch (ch)
         {
-        case '1':
-            Insertion(arr, &size, MAX_SIZE);
-            break;
-        case '2':
-            Deletion(arr, &size);
-            break;
-        case '3':
-            Display(arr, size);
-            break;
-        case '4':
-            cout << "Final array: ";
-            Display(arr, size);
-            cout << "Exiting program." << endl;
-            break;
-        default:
-            cout << "Invalid choice. Try again!" << endl;
-            break;
+            case '1':
+                Insertion(arr, &size, MAX_SIZE);
+                break;
+            case '2':
+                Deletion(arr, &size);
+                break;
+            case '3':
+                Display(arr, size);
+                break;
+            case '4':
+                cout << "Final array: ";
+                Display(arr, size);
+                cout << "Exiting program." << endl;
+                break;
+            default:
+                cout << "Invalid choice. Try again!" << endl;
+                break;
         }
     } while (ch != '4');
 

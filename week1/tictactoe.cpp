@@ -1,6 +1,20 @@
 #include <iostream>
 using namespace std;
 
+void printBoard(char a[3][3])
+{
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            cout << " " << a[i][j];
+            if (j < 2) cout << " |";
+        }
+        cout << endl;
+        if (i < 2) cout << "---|---|---" << endl;
+    }
+}
+
 char rowcheck(char a[3][3])
 {
     for (int i = 0; i < 3; i++)
@@ -43,15 +57,9 @@ int main()
     int i, j;
     char player = 'x';
     int draw = 0; // Initialize draw counter
-    char a[3][3] = {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
-    for (int k = 0; k < 3; k++)
-    {
-        for (int l = 0; l < 3; l++)
-        {
-            cout << "- ";
-        }
-        cout << endl;
-    }
+    char a[3][3] = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
+    printBoard(a); // Print initial empty board
+
     while (1)
     {
         cout << "Enter the position: ";
@@ -60,14 +68,7 @@ int main()
         {
             a[i][j] = player;
             draw++; // Increment draw counter
-            for (int k = 0; k < 3; k++)
-            {
-                for (int l = 0; l < 3; l++)
-                {
-                    cout << a[k][l] << " ";
-                }
-                cout << "\n";
-            }
+            printBoard(a); // Print updated board
         }
         else
         {
