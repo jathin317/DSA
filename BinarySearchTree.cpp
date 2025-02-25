@@ -26,45 +26,56 @@ node *insert(node *root, int x)
     }
     return root;
 }
-void Delete(node *root,int x)
+
+node* findMin(node* root) {
+    while (root->left != nullptr) root = root->left;
+    return root;
+}
+
+node* Delete(node *root, int x)
 {
-    while(root->data != x)
-    {
-        if(x < root->data)
-        {
-            root = root->left;
+    // Base case: if the tree is empty
+    if (root == nullptr) return root;
+
+    // If the value to be deleted is smaller than the root's value,
+    // then it lies in the left subtree
+    if (x < root->data)
+        root->left = Delete(root->left, x);
+
+    // If the value to be deleted is greater than the root's value,
+    // then it lies in the right subtree
+    else if (x > root->data)
+        root->right = Delete(root->right, x);
+
+    // If the value is the same as the root's value, then this is the node to be deleted
+    else {
+        // Node with no child
+        if (root->left == nullptr && root->right == nullptr) {
+            delete root;
+            return nullptr;
         }
-        else if(x > root->data)
-        {
-            root = root->right;
+        // Node with only one child
+        else if (root->left == nullptr) {
+            node *temp = root->right;
+            delete root;
+            return temp;
         }
-    }   
-    if(root->left == nullptr && root->right == nullptr)
-    {
-        delete root;
-    }
-    else if(root->left == nullptr)
-    {
-        node *temp = root;
-        root = root->right;
-        delete temp;
-    }
-    else if(root->right == nullptr)
-    {
-        node *temp = root;
-        root = root->left;
-        delete temp;
-    }
-    else
-    {
-        node *temp = root->right;
-        while(temp->left != nullptr)
-        {
-            temp = temp->left;
+        else if (root->right == nullptr) {
+            node *temp = root->left;
+            delete root;
+            return temp;
         }
+
+        // Node with two children: Get the inorder successor (smallest in the right subtree)
+        node *temp = findMin(root->right);
+
+        // Copy the inorder successor's content to this node
         root->data = temp->data;
-        delete temp;
+
+        // Delete the inorder successor
+        root->right = Delete(root->right, temp->data);
     }
+    return root;
 }
 
 void displayInorder(node *root)
@@ -87,7 +98,7 @@ int main()
     {
         cout << "Enter data for node " << i + 1 << ": ";
         cin >> arr[i];
-        root = insert(root, x);
+        root = insert(root, arr[i]);
     }
     int choice;
     do {
@@ -107,7 +118,7 @@ int main()
             case 2:
                 cout << "Enter data to delete: ";
                 cin >> x;
-                Delete(root, x);
+                root = Delete(root, x);
                 break;
             case 3:
                 displayInorder(root);
