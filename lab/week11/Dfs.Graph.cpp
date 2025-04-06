@@ -1,0 +1,71 @@
+#include <iostream>
+#include <stack>
+#include <list>
+using namespace std;
+
+struct Graph
+{
+    int v;
+    list<int> *adj;
+};
+
+void DFS(Graph &g)
+{
+    bool visited[g.v] = {false};
+    stack<int> s;
+    int start;
+    cout << "Enter starting vertex: ";
+    cin >> start;
+    s.push(start);
+    visited[start] = true;
+    while (!s.empty())
+    {
+        int v = s.top();
+        s.pop();
+        cout << v << " ";
+        for (int u : g.adj[v])
+        {
+            if (!visited[u])
+            {
+                s.push(u);
+                visited[u] = true;
+            }
+        }
+    }
+}
+
+int main()
+{
+    Graph g;
+    cout << "Enter number of vertices: ";
+    cin >> g.v;
+    g.adj = new list<int>[g.v];
+    for (int i = 0; i < g.v; i++)
+    {
+        cout << "Enter number of edges for vertex " << i << ": ";
+        int edges;
+        cin >> edges;
+        cout << "Enter the edges: ";
+        for (int j = 0; j < edges; j++)
+        {
+            int edge;
+            cin >> edge;
+            g.adj[i].push_back(edge);
+        }
+    }
+    DFS(g);
+    delete[] g.adj;
+    return 0;
+}
+
+// Sample Output:
+// Enter number of vertices: 4
+// Enter number of edges for vertex 0: 2
+// Enter the edges: 1 2
+// Enter number of edges for vertex 1: 1
+// Enter the edges: 3
+// Enter number of edges for vertex 2: 1
+// Enter the edges: 3
+// Enter number of edges for vertex 3: 0
+// Enter starting vertex: 0
+// 0 2 3 1
